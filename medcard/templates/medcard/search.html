@@ -1,0 +1,40 @@
+{% extends 'medcard/menu.html' %}
+
+{% block content %}
+
+      <!-- Main component for a primary marketing message or call to action -->
+
+      <div class="row">
+          <h1>Найти пациента</h1>
+
+          <form role="form" class="form-horizontal" action="/medcard/searchresult/" method="get">
+              <div class="form-group">
+                  <label class="col-md-2">Имя</label>
+                  <div class="col-md-3">
+                      <input type="text" class="form-control" placeholder="Имя" name="search_name">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-md-2">Фамилия</label>
+                  <div class="col-md-3">
+                      <input type="text" class="form-control" placeholder="Фамилия" name="search_surname">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-md-2">Дата рождения</label>
+                  <div class="col-md-3">
+                      <input type="date" class="form-control" name="search_bdate">
+                  </div>
+              </div>
+              <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">Найти</button>
+                  <button type="button" class="btn">Отменить</button>
+              </div>
+          </form>
+
+
+
+
+      </div>
+{% endblock content %}
+

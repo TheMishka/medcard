@@ -1,0 +1,144 @@
+{% extends 'medcard/menu.html' %}
+
+{% block docmodal %}
+<!-- Модальное окно редактирования документа -->
+<div id="docModal" class="modal fade" data-load-from="{% url '' %}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <form class = "form-horizontal" action="" method="post">
+            {% csrf_token %}
+      <!-- Заголовок модального окна -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Документ пациента</h4>
+      </div>
+      <!-- Основное содержимое модального окна -->
+      <div class="modal-body">
+        <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-3">Тип документа</label>
+                <div class="col-md-6">
+                    <input class="form-control" name="input_doctype" value="{{ p_card.name }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">Номер документа</label>
+                <div class="col-md-6">
+                    <input class="form-control" name="input_docnumber" value="{{ p_card.surname }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">Дата выдачи</label>
+                <div class="col-md-6">
+                    <input class="form-control" name="input_docdate" value="{{ p_card.gender }}">
+                </div>
+            </div>
+        </form>
+      </div>
+      <!-- Футер модального окна -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+{% endblock docmodal %}
+
+{% block content %}
+
+<div class="row">
+    <h2>Карточка пациента</h2>
+    <div class="col-md-5">
+        <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-3">Имя</label>
+                <div class="col-md-6">
+                    <output class="form-control" name="output_name">{{ p_card.name }}</output>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">Фамилия</label>
+                <div class="col-md-6">
+                    <output class="form-control" name="output_surname">{{ p_card.surname }}</output>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">Пол</label>
+                <div class="col-md-6">
+                    <output class="form-control" name="output_surname">{{ p_card.gender }}</output>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-5">
+        <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-4">Дата рождения</label>
+                <div class="col-md-6">
+                    <output class="form-control" name="output_bdate" >{{ p_card.birthday }}</output>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4">Место рождения</label>
+                <div class="col-md-6">
+                    <output class="form-control" name="output_place_bdate" >{{ p_card.place_of_birth }}</output>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-1">
+        <a class="btn btn-default" href="{% url 'medcard.views.card_edit' person_id=p_card.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    </div>
+</div>
+
+
+<div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#tab1" role="tab">Обследования</a></li>
+        <li><a data-toggle="tab" href="#tab2" role="tab">Анализы</a></li>
+        <li><a data-toggle="tab" href="#docs" role="tab">Документы</a></li>
+    </ul>
+</div>
+
+<div class="tab-content">
+    <div id="tab1" class="tab-pane fade in active">
+        <h3>HOME</h3>
+        <p>Some content.</p>
+    </div>
+    <div id="tab2" class="tab-pane fade">
+        <h3>Menu 1</h3>
+        <p>Some content in menu 1.</p>
+    </div>
+    <div id="docs" class="tab-pane fade">
+        <h3>Документы</h3>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Тип документа</th>
+                <th>Номер документа</th>
+                <th>Дата выдачи</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for doc in p_card.humandocument_set.all %}
+                <tr>
+                    <td>{{ doc.document_type }}</td>
+                    <td>{{ doc.document_number }}</td>
+                    <td>{{ doc.document_date }}</td>
+                 <!--   <td><a href="#docModal" class="btn btn-default" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></a></td> -->
+                     <td><a data-target="#docModal" class="btn btn-default" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></a></td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}
+

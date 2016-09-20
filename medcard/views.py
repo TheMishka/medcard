@@ -2,9 +2,10 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_protect
 
 from .models import Human, HumanDocument
-from .forms import NewPerson
+from .forms import NewPerson, DocumentEdit
 
 
 def index(request):
@@ -42,7 +43,7 @@ def new_person(request):
 def card_edit(request, person_id):
     p_card = get_object_or_404(Human, id=person_id)
     if request.method == "POST":
-        form = NewPerson(request.POST)
+        form = NewPerson(request.POST, instance=p_card)
         if form.is_valid():
             p_card = form.save(commit=False)
             p_card.create_date = timezone.now()
@@ -59,14 +60,22 @@ def personcard(request, person_id):
     p_card = get_object_or_404(Human, id = person_id)
     return render(request, 'medcard/personcard.html', {'p_card': p_card})
 
-def doc_edit(request, doc_id, person_id):
+@csrf_protect
+def doc_edit(request, person_id, doc_id):
     p_doc = get_object_or_404(HumanDocument, id=doc_id)
-    if request.method == "POST":
-        form = DocEdit(request.POST)
-        if form.is_valid():
-            p_doc = form.save(commit=False)
-            p_doc.save()
-            return redirect('medcard.views.personcard', person_id)
+    p_card = get_object_or_404(Human, id=person_id)
+    if request.method == "POST" and request.is_ajax():
+        p_doc = HumanDocument(
+            id=request.POST.get("doc_id"),
+            human=p_card,
+            document_type=request.POST.get("doc_type"),
+            document_number=request.POST.get("doc_number"),
+            document_date=request.POST.get("doc_date")
+        )
+        p_doc.save()
+        return redirect('medcard.views.personcard', person_id)
+
     else:
-        form = DocEdit(instance=p_doc)
-    return render(request, 'medcard/docmodal.html', {'form': form})
+        form = DocumentEdit(instance=p_doc)
+    return render(request, 'medcard/docmodal.html', {'form': form, 'p_card': p_card, 'p_doc': p_doc})
+

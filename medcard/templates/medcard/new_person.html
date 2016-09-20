@@ -7,9 +7,9 @@
     <h1>Новый пациент</h1>
         <form method="POST" class="form-horizontal">
             {% csrf_token %}
-            {{ form|bootstrap_horizontal:'col-md-2' }}
+            {{ form|bootstrap_horizontal:'col-md-3' }}
             <div class="form-group">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <button type="submit" class="btn btn-success">Сохранить</button>
                 </div>
             </div>

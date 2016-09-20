@@ -20,12 +20,13 @@ class NewPerson(forms.ModelForm):
                 },
             }
 
-class DocEdit(forms.ModelForm):
-    class Meta:
-        model = HumanDocument
-        fields = '__all__'
-        labels = {
-            'document_type': ('Тип документа'),
-            'document_number': ('Номер документа'),
-            'document_date': ('Дата выдачи документа')
-        }
+class DocumentEdit(forms.ModelForm):
+        class Meta:
+            model = HumanDocument
+            fields = '__all__'
+            widgets = {'human': forms.HiddenInput()}
+            labels = {
+                'document_type': ('Тип документа'),
+                'document_number': ('Номер документа'),
+                'document_date': ('Дата выдачи документа')
+            }

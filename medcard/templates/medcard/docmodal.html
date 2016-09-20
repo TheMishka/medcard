@@ -1,21 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<div class="row">
-    <h1>Документ</h1>
-        <form method="POST" class="form-horizontal">
+{% load bootstrap %}
+
+<div class="modal-content" id="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Редактирование документа. Пациент {{ p_card.surname }}</h4>
+    </div>
+    <form method="POST" class="form-horizontal">
+    <div class="modal-body">
+
             {% csrf_token %}
-            {{ form|bootstrap_horizontal:'col-md-2' }}
-            <div class="form-group">
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-success">Сохранить</button>
-                </div>
-            </div>
-        </form>
+            {{ form|bootstrap_horizontal:'col-md-3' }}
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn btn-success modal-success" data-id="{{ p_doc.id }}">Сохранить</button>
+    </div>
+    </form>
 </div>
-</body>
-</html>

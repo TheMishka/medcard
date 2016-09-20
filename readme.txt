@@ -1,5 +1,6 @@
 Install django
-Install django-forms-bootstrap
+Install django-bootstrap-forms
+https://github.com/tzangms/django-bootstrap-form
 Add ‘bootstrapform’ in INSTALLED_APPS (settings.py)
 
 Add library

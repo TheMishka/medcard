@@ -25,7 +25,7 @@ $(document).ready(function(){
         var error = '';
         if ((doc_number == '') || (doc_type == '') || (doc_date == '')){
             error = 'Заполните все поля!';
-            alert(error);
+            swal("Предупреждение!", error, "warning");
         }
         if (!error) {
             $.ajax({
@@ -41,8 +41,16 @@ $(document).ready(function(){
                     alert('Ошибка получения запроса');
                 },
 // При успехе выводим сообщение
-                success: function(data) {
-                    alert("Данные успешно изменены");
+                success: function() {
+                    $("#doc-modal").modal('toggle');
+                    swal({
+                        title: "",
+                        text: "Данные успешно изменены",
+                        type: "success",
+                    },
+                    function(){
+                        location.reload();
+                    })
                 },
 // CSRF механизм защиты Django
                 beforeSend: function(xhr, settings) {
@@ -53,7 +61,6 @@ $(document).ready(function(){
                             var cookies = document.cookie.split(';');
                             for (var i = 0; i < cookies.length; i++) {
                                 var cookie = jQuery.trim(cookies[i]);
-                            // Does this cookie string begin with the name we want?
                             if (cookie.substring(0, name.length + 1) == (name + '=')) {
                                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                                 break;
@@ -68,11 +75,12 @@ $(document).ready(function(){
                     }
                 }
             });// ajax
+
         }
-        return false;
+
 
         })
+
     });
-//    $("#doc-modal").modal('toggle');
 
 })

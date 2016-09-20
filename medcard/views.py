@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext, loader
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
@@ -73,7 +73,7 @@ def doc_edit(request, person_id, doc_id):
             document_date=request.POST.get("doc_date")
         )
         p_doc.save()
-        return redirect('medcard.views.personcard', person_id)
+        return JsonResponse({'person_id': person_id})
 
     else:
         form = DocumentEdit(instance=p_doc)

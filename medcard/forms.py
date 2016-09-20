@@ -23,8 +23,9 @@ class NewPerson(forms.ModelForm):
 class DocumentEdit(forms.ModelForm):
         class Meta:
             model = HumanDocument
-            fields = '__all__'
-            widgets = {'human': forms.HiddenInput()}
+            exclude = ('human',)
+#            fields = '__all__'
+#            widgets = {'human': forms.HiddenInput()}
             labels = {
                 'document_type': ('Тип документа'),
                 'document_number': ('Номер документа'),

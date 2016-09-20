@@ -10,3 +10,8 @@ First ‘jQuery’
 Next ‘Bootstrap’
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0//css/bootstrap.min.css" rel="stylesheet">
 <script data-require="bootstrap@3.2.0" data-semver="3.2.0" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.js"></script>
+
+Add plugin
+
+Change alert to sweetAlert (swal)
+download from http://t4t5.github.io/sweetalert/ or ‘$ npm install sweetalert’

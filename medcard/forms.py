@@ -25,7 +25,7 @@ class DocumentEdit(forms.ModelForm):
             model = HumanDocument
             exclude = ('human',)
 #            fields = '__all__'
-#            widgets = {'human': forms.HiddenInput()}
+#            widgets = {'documet_date': forms.DateInput()}
             labels = {
                 'document_type': ('Тип документа'),
                 'document_number': ('Номер документа'),

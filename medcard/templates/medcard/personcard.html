@@ -14,48 +14,37 @@
 
 {% block content %}
 
-<div class="row">
-    <h2>Карточка пациента</h2>
-    <div class="col-md-5">
-        <form role="form" class="form-horizontal">
-            <div class="form-group">
-                <label class="col-md-3">Имя</label>
-                <div class="col-md-6">
-                    <output class="form-control" name="output_name">{{ p_card.name }}</output>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-3">Фамилия</label>
-                <div class="col-md-6">
-                    <output class="form-control" name="output_surname">{{ p_card.surname }}</output>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-3">Пол</label>
-                <div class="col-md-6">
-                    <output class="form-control" name="output_surname">{{ p_card.gender }}</output>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="col-md-5">
-        <form role="form" class="form-horizontal">
-            <div class="form-group">
-                <label class="col-md-4">Дата рождения</label>
-                <div class="col-md-6">
-                    <output class="form-control" name="output_bdate" >{{ p_card.birthday }}</output>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4">Место рождения</label>
-                <div class="col-md-6">
-                    <output class="form-control" name="output_place_bdate" >{{ p_card.place_of_birth }}</output>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="col-md-1">
-        <a class="btn btn-default" href="{% url 'medcard.views.card_edit' person_id=p_card.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+<div class="container">
+    <ul class="breadcrumb">
+        <li class="active" style="font-size: 20px;">Карточка пациента</li>
+    </ul>
+    <div class="row">
+
+        <div class="col-md-5">
+            <label class="col-md-4">Имя</label>
+            <p class="col-md-6">{{ p_card.name }}</p>
+
+
+            <label class="col-md-4">Фамилия</label>
+            <p class="col-md-6">{{ p_card.surname }}</p>
+
+        </div>
+        <div class="col-md-5">
+            <label class="col-md-4">Дата рождения</label>
+            <p class="col-md-6">{{ p_card.birthday }}</p>
+
+
+            <label class="col-md-4">Место рождения</label>
+            <p class="col-md-6">{{ p_card.place_of_birth }}</p>
+
+            <label class="col-md-4">Пол</label>
+            <p class="col-md-6">{{ p_card.gender }}</p>
+
+        </div>
+
+        <div class="col-md-2">
+            <a class="btn btn-default" href="{% url 'medcard.views.card_edit' person_id=p_card.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        </div>
     </div>
 </div>
 
@@ -70,15 +59,15 @@
 
 <div class="tab-content">
     <div id="tab1" class="tab-pane fade">
-        <h3>HOME</h3>
+        <h4>HOME</h4>
         <p>Some content.</p>
     </div>
     <div id="tab2" class="tab-pane fade">
-        <h3>Menu 1</h3>
+        <h4>Menu 1</h4>
         <p>Some content in menu 1.</p>
     </div>
     <div id="docs" class="tab-pane fade in active">
-        <h3>Документы</h3>
+        <h4>Документы</h4>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -94,12 +83,18 @@
                     <td>{{ doc.document_type }}</td>
                     <td>{{ doc.document_number }}</td>
                     <td>{{ doc.document_date }}</td>
-                    <td><button data-id="{{ doc.id }}" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                    <td>
+                        <button data-id="{{ doc.id }}" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button data-id="{{ doc.id }}" type="button" class="btn btn-default" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button>
+                    </td>
 
                 </tr>
+
             {% endfor %}
+
             </tbody>
         </table>
+        <button data-id="{{ doc.id }}" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></button>
     </div>
 </div>
 

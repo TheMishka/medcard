@@ -25,7 +25,9 @@ class DocumentEdit(forms.ModelForm):
             model = HumanDocument
             exclude = ('human',)
 #            fields = '__all__'
-#            widgets = {'documet_date': forms.DateInput()}
+            widgets = {
+                'document_date': forms.DateInput(format=('%d.%m.%Y'))
+            }
             labels = {
                 'document_type': ('Тип документа'),
                 'document_number': ('Номер документа'),

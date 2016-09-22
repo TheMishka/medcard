@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-5">
             <label class="col-md-4">Дата рождения</label>
-            <p class="col-md-6">{{ p_card.birthday }}</p>
+            <p class="col-md-6">{{ p_card.birthday|date:"d.m.Y" }}</p>
 
 
             <label class="col-md-4">Место рождения</label>
@@ -82,7 +82,7 @@
                 <tr>
                     <td>{{ doc.document_type }}</td>
                     <td>{{ doc.document_number }}</td>
-                    <td>{{ doc.document_date }}</td>
+                    <td>{{ doc.document_date|date:"d.m.Y" }}</td>
                     <td>
                         <button data-id="{{ doc.id }}" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button>
                         <button data-id="{{ doc.id }}" type="button" class="btn btn-default" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button>
@@ -94,7 +94,7 @@
 
             </tbody>
         </table>
-        <button data-id="{{ doc.id }}" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></button>
+        <button data-id="" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></button>
     </div>
 </div>
 

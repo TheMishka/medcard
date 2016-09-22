@@ -17,11 +17,17 @@ $(document).ready(function(){
         $("#doc-modal").modal('show');
     });
     $("#doc-modal").on('shown.bs.modal', function(){
+
+        $('#id_document_date').datepicker({
+		    format: 'dd.mm.yyyy'
+	    });
+
         $(".modal-success").click(function(){
         var id = $(this).data('id');
         var doc_type = $('input[name=document_type]').val();
         var doc_number = $('input[name=document_number]').val();
-        var doc_date = $('input[name=document_date]').val();
+        var tempDate = $('input[name=document_date]').val().split('.');
+        var doc_date = tempDate[2]+'-'+tempDate[1]+'-'+tempDate[0];
         var error = '';
         if ((doc_number == '') || (doc_type == '') || (doc_date == '')){
             error = 'Заполните все поля!';

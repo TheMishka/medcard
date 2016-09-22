@@ -15,3 +15,8 @@ Add plugin
 
 Change alert to sweetAlert (swal)
 download from http://t4t5.github.io/sweetalert/ or ‘$ npm install sweetalert’
+
+Add datepicker for Bootstrap
+download from http://www.eyecon.ro/bootstrap-datepicker/#
+<script src="{% static 'datepicker/js/bootstrap-datepicker.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'datepicker/css/datepicker.css' %}">

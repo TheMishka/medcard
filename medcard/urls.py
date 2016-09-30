@@ -1,8 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from . import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^searchresult/$', views.searchresult, name = 'searchresult'),
     url(r'^about/$', views.about, name = 'about'),
@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^(?P<person_id>\d+)/$', views.personcard, name='personcard'),
     url(r'^(?P<person_id>\d+)/docedit/(?P<doc_id>\d+)$', views.doc_edit, name='docedit'),
     url(r'^(?P<person_id>\d+)/edit/$', views.card_edit, name = 'card_edit'),
-)
+    url(r'^admin/jsi18n', 'django.views.i18n.javascript_catalog', name='jsi18n'), # hack to use admin form widgets
+]

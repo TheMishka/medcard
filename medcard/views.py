@@ -13,16 +13,19 @@ def index(request):
 
 def searchresult(request):
     query_name = ''
+    query_patronymic = ''
     query_surname = ''
     query_bdate = ''
     found_card = None
     if request.GET:
         query_name = request.GET['search_name']
+        query_patronymic = request.GET['search_patronymic']
         query_surname = request.GET['search_surname']
         query_bdate = request.GET['search_bdate']
-        found_card = Human.objects.filter(name__icontains=query_name, surname__icontains=query_surname, birthday__icontains=query_bdate)
+        found_card = Human.objects.filter(name__icontains=query_name, surname__icontains=query_surname, patronymic__icontains=query_patronymic, birthday__icontains=query_bdate)
     return render(request, 'medcard/searchresult.html', {
         'query_name': query_name,
+        'query_patronymic': query_patronymic,
         'query_surname': query_surname,
         'query_bdate': query_bdate,
         'found_card': found_card
@@ -33,7 +36,6 @@ def new_person(request):
         form = NewPerson(request.POST)
         if form.is_valid():
             p_card = form.save(commit=False)
-            p_card.create_date = timezone.now()
             p_card.save()
             return redirect('medcard.views.personcard', person_id=p_card.id)
     else:
@@ -45,9 +47,7 @@ def card_edit(request, person_id):
     if request.method == "POST":
         form = NewPerson(request.POST, instance=p_card)
         if form.is_valid():
-            p_card = form.save(commit=False)
-            p_card.create_date = timezone.now()
-            p_card.save()
+            form.save()
             return redirect('medcard.views.personcard', person_id=p_card.id)
     else:
         form = NewPerson(instance=p_card)

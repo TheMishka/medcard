@@ -16,22 +16,28 @@
               <table class="table table-hover">
                   <thead>
                       <tr>
-                          <th>Имя</th>
                           <th>Фамилия</th>
+                          <th>Имя</th>
+                          <th>Отчество</th>
                           <th>Дата рождения</th>
                           <th>Место рождения</th>
                           <th>Пол</th>
                       </tr>
                   </thead>
                   <tbody>
-                  {% for p_card in found_card%}
+                  {% for p_card in found_card %}
 
                       <tr>
-                          <td><a href="{% url 'medcard.views.personcard' person_id=p_card.id %}"><u>{{ p_card.name }}</u></a></td>
-                          <td>{{ p_card.surname }}</td>
-                          <td>{{ p_card.birthday }}</td>
+                          <td><a href="{% url 'medcard.views.personcard' person_id=p_card.id %}"><u>{{ p_card.surname }}</u></a></td>
+                          <td>{{ p_card.name }}</td>
+                          <td>{{ p_card.patronymic }}</td>
+                          <td>{{ p_card.birthday|date:"d.m.Y" }}</td>
                           <td>{{ p_card.place_of_birth }}</td>
-                          <td>{{ p_card.gender }}</td>
+                          {% if p_card.gender == 'm' %}
+                          <td>мужской</td>
+                          {% else %}
+                          <td>женский</td>
+                          {% endif %}
                       </tr>
                   {% endfor %}
 

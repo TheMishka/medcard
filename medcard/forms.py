@@ -7,18 +7,13 @@ class NewPerson(forms.ModelForm):
             exclude = ('create_date',)
             labels = {
                 'name': ('Имя'),
+                'patronymic': ('Отчество'),
                 'surname': ('Фамилия'),
                 'birthday': ('Дата рождения'),
                 'place_of_birth': ('Место рождения'),
-                'gender': ('Пол'),
-                'age': ('Возраст'),
-                'inn': ('ИНН')
+                'gender': ('Пол')
             }
-            error_messages = {
-                'age': {
-                    'max_length': ("Столько не живут!"),
-                },
-            }
+
 
 class DocumentEdit(forms.ModelForm):
         class Meta:

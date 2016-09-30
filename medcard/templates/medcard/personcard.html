@@ -38,7 +38,11 @@
             <p class="col-md-6">{{ p_card.place_of_birth }}</p>
 
             <label class="col-md-4">Пол</label>
-            <p class="col-md-6">{{ p_card.gender }}</p>
+            {% if p_card.gender == 'm' %}
+            <p class="col-md-6">мужской</p>
+                          {% else %}
+            <p class="col-md-6">женский</p>
+                          {% endif %}
 
         </div>
 

@@ -1,4 +1,6 @@
 from django.db import models
+
+from mptt.models import MPTTModel, TreeForeignKey
 from django.utils import timezone
 
 
@@ -49,7 +51,22 @@ class Email(models.Model):
     emailType = models.CharField(max_length=1, choices=MAILTYPE_CHOICES)
 
 
-# class Diagnosis(models.Model):
+class DiagnosisCategory(MPTTModel):
+    code = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=100, unique=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
+    def __str__(self):
+        return self.name
+
+class DiagnosisRelation(models.Model):
+    human = models.ForeignKey(Human)
+    diagnosis = models.ForeignKey(DiagnosisCategory)
+    create_date = models.DateField(verbose_name='Дата постановки диагноза')
+    change_date = models.DateTimeField(auto_now=True)
 
 #class Anamnesis(models.Model):
     

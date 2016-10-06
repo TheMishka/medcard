@@ -1,7 +1,16 @@
 Install django
 Install django-bootstrap-forms
-https://github.com/tzangms/django-bootstrap-form
-Add ‘bootstrapform’ in INSTALLED_APPS (settings.py)
+- https://github.com/tzangms/django-bootstrap-form
+- Add ‘bootstrapform’ in INSTALLED_APPS (settings.py)
+Install django-mptt:
+- git clone git://github.com/django-mptt/django-mptt.git
+- cd django-mptt
+- python setup install 
+- add ‘mptt’ in INSTALLED_APPS (settings.py)
+Install django-mptt-admin
+- https://github.com/mbraak/django-mptt-admin
+- $ pip install django-mptt-admin
+- add ‘django-mptt-admin’ in INSTALLED_APPS (settings.py)
 
 Add library
 

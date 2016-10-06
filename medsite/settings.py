@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'medcard',
     'bootstrapform',
+    'mptt',
+    'django_mptt_admin',
 ]
 
 MIDDLEWARE_CLASSES = [

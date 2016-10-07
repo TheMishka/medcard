@@ -55,22 +55,48 @@
 
 <div>
     <ul class="nav nav-tabs">
-        <li><a data-toggle="tab" href="#tab1" role="tab">Обследования</a></li>
-        <li><a data-toggle="tab" href="#tab2" role="tab">Анализы</a></li>
-        <li class="active"><a data-toggle="tab" href="#docs" role="tab">Документы</a></li>
+        <li class="active"><a data-toggle="tab" href="#tab1" role="tab">Диагноз</a></li>
+        <li><a data-toggle="tab" href="#tab2" role="tab">Анамнез</a></li>
+        <li><a data-toggle="tab" href="#docs" role="tab">Документы</a></li>
     </ul>
 </div>
 
 <div class="tab-content">
-    <div id="tab1" class="tab-pane fade">
-        <h4>HOME</h4>
-        <p>Some content.</p>
+    <div id="tab1" class="tab-pane fade in active">
+        <h4>Диагноз</h4>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Код классификатора</th>
+                <th>Конечный диагноз</th>
+                <th>Дата постановки диагноза</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for diag in p_card.diagnosisrelation_set.all %}
+
+                <tr>
+                    <td>{{ diag.diagnosis.code }}</td>
+                    <td>{{ diag.diagnosis.name }}</td>
+                    <td>{{ diag.create_date|date:"d.m.Y" }}</td>
+                    <td>
+                        <button data-id="{{ doc.id }}" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button data-id="{{ doc.id }}" type="button" class="btn btn-default" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button>
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
     </div>
     <div id="tab2" class="tab-pane fade">
-        <h4>Menu 1</h4>
+        <h4>Анамнез</h4>
         <p>Some content in menu 1.</p>
     </div>
-    <div id="docs" class="tab-pane fade in active">
+    <div id="docs" class="tab-pane fade">
         <h4>Документы</h4>
         <table class="table table-hover">
             <thead>

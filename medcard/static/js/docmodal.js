@@ -15,12 +15,15 @@ $(document).ready(function(){
         $('#modal-content').html(data)
         })
         $("#doc-modal").modal('show');
+
     });
     $("#doc-modal").on('shown.bs.modal', function(){
 
-        $('#id_document_date').datepicker({
+        var chooseDate = $('#id_document_date').datepicker({
 		    format: 'dd.mm.yyyy'
-	    });
+	    }).on('changeDate', function(ev){  /* Hidden calendar */
+	        chooseDate.hide();
+	    }).data('datepicker');
 
         $(".modal-success").click(function(){
         var id = $(this).data('id');

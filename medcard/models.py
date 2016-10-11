@@ -9,14 +9,19 @@ class Human(models.Model):
     patronymic = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
     birthday = models.DateField()
-    place_of_birth = models.CharField(max_length=100)
+    residence = models.CharField(max_length=100)
     GENDER_CHOICES = (
         ('m', 'Мужской'),
         ('f', 'Женский')
         )
-    gender = models.CharField(max_length=1,
-                              choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     create_date = models.DateTimeField(auto_now=True)
+    blood = models.CharField(max_length=10)
+    RH_CHOICES = (
+        ('p', 'Положительный'),
+        ('m', 'Отрицательный')
+    )
+    rh = models.CharField(max_length=1, choices=RH_CHOICES)
 
     def __str__(self):
         return self.name

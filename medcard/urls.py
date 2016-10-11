@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^new_person/$', views.new_person, name = 'new_person'),
     url(r'^(?P<person_id>\d+)/$', views.personcard, name='personcard'),
     url(r'^(?P<person_id>\d+)/docedit/(?P<doc_id>\d+)$', views.doc_edit, name='docedit'),
+    url(r'^(?P<person_id>\d+)/docedit/$', views.doc_edit, name='newdoc'),
     url(r'^(?P<person_id>\d+)/edit/$', views.card_edit, name = 'card_edit'),
-#    url(r'^admin/jsi18n', 'django.views.i18n.javascript_catalog', name='jsi18n'), # hack to use admin form widgets
 ]

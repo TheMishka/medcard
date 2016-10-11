@@ -61,21 +61,34 @@ def personcard(request, person_id):
     return render(request, 'medcard/personcard.html', {'p_card': p_card})
 
 @csrf_protect
-def doc_edit(request, person_id, doc_id):
-    p_doc = get_object_or_404(HumanDocument, id=doc_id)
+def doc_edit(request, person_id, doc_id=''):
     p_card = get_object_or_404(Human, id=person_id)
-    if request.method == "POST" and request.is_ajax():
-        p_doc = HumanDocument(
-            id=request.POST.get("doc_id"),
-            human=p_card,
-            document_type=request.POST.get("doc_type"),
-            document_number=request.POST.get("doc_number"),
-            document_date=request.POST.get("doc_date")
-        )
-        p_doc.save()
-        return JsonResponse({'person_id': person_id})
-
+    if doc_id != '':
+        p_doc = get_object_or_404(HumanDocument, id=doc_id)
+        if request.method == "POST" and request.is_ajax():
+            p_doc = HumanDocument(
+                id=request.POST.get("doc_id"),
+                human=p_card,
+                document_type=request.POST.get("doc_type"),
+                document_number=request.POST.get("doc_number"),
+                document_date=request.POST.get("doc_date")
+            )
+            p_doc.save()
+            return JsonResponse({'person_id': person_id})
+        else:
+            form = DocumentEdit(instance=p_doc)
     else:
-        form = DocumentEdit(instance=p_doc)
+        p_doc = ''
+        if request.method == "POST" and request.is_ajax():
+            p_doc = HumanDocument(
+                human=p_card,
+                document_type=request.POST.get("doc_type"),
+                document_number=request.POST.get("doc_number"),
+                document_date=request.POST.get("doc_date")
+            )
+            p_doc.save()
+            return JsonResponse({'person_id': person_id})
+        else:
+            form = DocumentEdit()
     return render(request, 'medcard/docmodal.html', {'form': form, 'p_card': p_card, 'p_doc': p_doc})
 

@@ -16,33 +16,32 @@
 
 <div class="container">
     <ul class="breadcrumb">
-        <li class="active" style="font-size: 20px;">Карточка пациента</li>
+        <li class="active" style="font-size: 20px;">Карточка пациента {{ p_card.surname }} {{ p_card.name }} {{ p_card.patronymic }}</li>
     </ul>
     <div class="row">
 
         <div class="col-md-5">
-            <label class="col-md-4">Имя</label>
-            <p class="col-md-6">{{ p_card.name }}</p>
-
-
-            <label class="col-md-4">Фамилия</label>
-            <p class="col-md-6">{{ p_card.surname }}</p>
+            <label class="col-md-4">Группа крови</label>
+            <p class="col-md-8">{{ p_card.blood }}</p>
+            <label class="col-md-4">Резус</label>
+            {% if p_card.rh == 'p' %}
+            <p class="col-md-8">положительный</p>
+            {% else %}
+            <p class="col-md-8">отрицательный</p>
+            {% endif %}
 
         </div>
         <div class="col-md-5">
-            <label class="col-md-4">Дата рождения</label>
-            <p class="col-md-6">{{ p_card.birthday|date:"d.m.Y" }}</p>
-
-
-            <label class="col-md-4">Место рождения</label>
-            <p class="col-md-6">{{ p_card.place_of_birth }}</p>
-
             <label class="col-md-4">Пол</label>
             {% if p_card.gender == 'm' %}
-            <p class="col-md-6">мужской</p>
-                          {% else %}
-            <p class="col-md-6">женский</p>
-                          {% endif %}
+            <p class="col-md-8">мужской</p>
+            {% else %}
+            <p class="col-md-8">женский</p>
+            {% endif %}
+            <label class="col-md-4">Дата рождения</label>
+            <p class="col-md-8">{{ p_card.birthday|date:"d.m.Y" }}</p>
+            <label class="col-md-4">Место проживания</label>
+            <p class="col-md-8">{{ p_card.residence }}</p>
 
         </div>
 
@@ -91,6 +90,7 @@
 
             </tbody>
         </table>
+        <button data-id="" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></button>
     </div>
     <div id="tab2" class="tab-pane fade">
         <h4>Анамнез</h4>

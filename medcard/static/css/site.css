@@ -1,41 +1,82 @@
-html,
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
+/* цвет фона и рамки навигационного меню */
+.navbar-castom {
+    background-color: #2ecc71;
+    border-color: #27ae60;
 }
-
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+/* цвет текста, содержащий название сайта или бренда */
+.navbar-castom .navbar-brand {
+    color: #ecf0f1;
 }
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
+/* цвет текста (название сайта или бренда), при поднесении к нему курсора мышки или при его нахождении в фокусе */
+.navbar-castom .navbar-brand:hover,
+.navbar-castom .navbar-brand:focus {
+    color: #d1ffed;
 }
-.form-signin .checkbox {
-  font-weight: normal;
+/* Цвет пунктов навигационного меню */
+.navbar-castom .navbar-nav > li > a {
+    color: #ecf0f1;
 }
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
+/* Цвет пункта меню, при поднесении к нему курсора мышки или при его нахождении в фокусе */
+.navbar-castom .navbar-nav > li > a:hover,
+.navbar-castom .navbar-nav > li > a:focus {
+    color: #008500;
+    background-color: #67E667;
 }
-.form-signin .form-control:focus {
-  z-index: 2;
+/* Цвет и фон активного пункта меню, а также поднесении к нему курсора мышки или при его нахождении в фокусе */
+.navbar-castom .navbar-nav > .active > a, 
+.navbar-castom .navbar-nav > .active > a:hover, 
+.navbar-castom .navbar-nav > .active > a:focus {
+    color: #d1ffed;
+    background-color: #27ae60;
 }
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+/* Цвет и фон открытого пункта меню, а также поднесении к нему курсора мышки или при его нахождении в фокусе */
+.navbar-castom .navbar-nav > .open > a, 
+.navbar-castom .navbar-nav > .open > a:hover, 
+.navbar-castom .navbar-nav > .open > a:focus {
+    color: #d1ffed;
+    background-color: #27ae60;
 }
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+/* Цвет стрелочки (треугольничка) у раскрывающихся пунктов меню */
+.navbar-castom .navbar-nav > .dropdown > a .caret {
+    border-top-color: #ecf0f1;
+    border-bottom-color: #ecf0f1;
+}
+/* Цвет стрелочки (треугольничка) при поднесении к нему курсора мышки или при его нахождении в фокусе */
+.navbar-castom .navbar-nav > .dropdown > a:hover .caret,
+.navbar-castom .navbar-nav > .dropdown > a:focus .caret {
+    border-top-color: #d1ffed;
+    border-bottom-color: #d1ffed;
+}
+/* Цвет стрелочки (треугольничка), открывшегося пункта меню */
+.navbar-castom .navbar-nav > .open > a .caret, 
+.navbar-castom .navbar-nav > .open > a:hover .caret, 
+.navbar-castom .navbar-nav > .open > a:focus .caret {
+    border-top-color: #d1ffed;
+    border-bottom-color: #d1ffed;
+}
+/* CSS стили для мобильных устройств */
+/* Цвет рамки у кнопки, которая открывает меню */
+.navbar-castom .navbar-toggle {
+    border-color: #27ae60;
+}
+/* Цвет фона кнопки (которая открывает меню) при поднесении к ней курсора мышки или при нахождении её в фокусе */
+.navbar-castom .navbar-toggle:hover,
+.navbar-castom .navbar-toggle:focus {
+    background-color: #27ae60;
+}
+/* Цвет полосочек в кнопочке, которая открывает меню */
+.navbar-castom .navbar-toggle .icon-bar {
+    background-color: #ecf0f1;
+}
+/* Цвет пунктов меню в раскрывающихся списках */
+@media (max-width: 767px) {
+    .navbar-castom .navbar-nav .open .dropdown-menu > li > a {
+        color: #ecf0f1;
+  }
+/* Цвет и фон пункта меню в раскрывающихся списках, при поднесении к нему курсора мышки или при нахождении его в фокусе */
+    .navbar-castom .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-castom .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #d1ffed;
+        background-color: #27ae60;
+    }
 }

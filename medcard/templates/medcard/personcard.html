@@ -14,42 +14,62 @@
 
 {% block content %}
 
-<div class="container">
+
     <ul class="breadcrumb">
-        <li class="active" style="font-size: 20px;">Карточка пациента {{ p_card.surname }} {{ p_card.name }} {{ p_card.patronymic }}</li>
+        <li style="font-size: 20px;">Карточка пациента {{ p_card.surname }} {{ p_card.name }} {{ p_card.patronymic }}</li>
     </ul>
     <div class="row">
 
-        <div class="col-md-5">
-            <label class="col-md-4">Группа крови</label>
-            <p class="col-md-8">{{ p_card.blood }}</p>
-            <label class="col-md-4">Резус</label>
-            {% if p_card.rh == 'p' %}
-            <p class="col-md-8">положительный</p>
-            {% else %}
-            <p class="col-md-8">отрицательный</p>
-            {% endif %}
-
-        </div>
-        <div class="col-md-5">
-            <label class="col-md-4">Пол</label>
+        <div class="col-md-12">
+            <label class="col-md-2">Пол</label>
             {% if p_card.gender == 'm' %}
-            <p class="col-md-8">мужской</p>
+                <p class="col-md-3">мужской</p>
             {% else %}
-            <p class="col-md-8">женский</p>
+                <p class="col-md-3">женский</p>
             {% endif %}
-            <label class="col-md-4">Дата рождения</label>
-            <p class="col-md-8">{{ p_card.birthday|date:"d.m.Y" }}</p>
-            <label class="col-md-4">Место проживания</label>
-            <p class="col-md-8">{{ p_card.residence }}</p>
-
+            <label class="col-md-2">Дата рождения</label>
+            <p class="col-md-4">{{ p_card.birthday|date:"d.m.Y" }}</p>
+            <div class="col-md-1">
+                <a class="btn btn-default" href="{% url 'medcard.views.card_edit' person_id=p_card.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-md-2">Группа крови</label>
+            <p class="col-md-3">{{ p_card.blood }}</p>
+            <label class="col-md-2">Место проживания</label>
+            <p class="col-md-5">{{ p_card.residence }}</p>
         </div>
 
-        <div class="col-md-2">
-            <a class="btn btn-default" href="{% url 'medcard.views.card_edit' person_id=p_card.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <div class="col-md-12">
+            <label class="col-md-2">Резус</label>
+            {% if p_card.rh == 'p' %}
+                <p class="col-md-3">положительный</p>
+            {% else %}
+                <p class="col-md-3">отрицательный</p>
+            {% endif %}
+            {% if p_phone.phoneType == 'm' %}
+                <label class="col-md-2">Сотовый телефон</label>
+            {% elif p_phone.phoneType == 'w' %}
+                <label class="col-md-2">Рабочий телефон</label>
+            {% else %}
+                <label class="col-md-2">Телефон</label>
+            {% endif %}
+            <p class="col-md-5">{{ p_phone.phoneNumber }}</p>
+
+        </div>
+        <div class="col-md-12">
+            {% if p_email.emailType == 'p' %}
+                <label class="col-md-2 col-md-offset-5">Личный e-mail</label>
+            {% elif p_email.emailType == 'w' %}
+                <label class="col-md-2 col-md-offset-5">Рабочий e-mail</label>
+            {% else %}
+                <label class="col-md-2 col-md-offset-5">e-mail</label>
+            {% endif %}
+            <p class="col-md-5">{{ p_email.email }}</p>
+
         </div>
     </div>
-</div>
+
 
 
 <div>
@@ -81,7 +101,7 @@
                     <td>{{ diag.create_date|date:"d.m.Y" }}</td>
                     <td>
                         <button data-id="{{ doc.id }}" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button>
-                        <button data-id="{{ doc.id }}" type="button" class="btn btn-default" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button>
+                        <button data-id="{{ doc.id }}" type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></button>
                     </td>
 
                 </tr>
@@ -115,7 +135,7 @@
                     <td>{{ doc.document_date|date:"d.m.Y" }}</td>
                     <td>
                         <button data-id="{{ doc.id }}" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button>
-                        <button data-id="{{ doc.id }}" type="button" class="btn btn-default" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span></button>
+                        <button data-id="{{ doc.id }}" type="button" class="btn btn-default doc-del"><span class="glyphicon glyphicon-trash"></span></button>
                     </td>
 
                 </tr>

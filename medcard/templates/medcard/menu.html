@@ -26,6 +26,7 @@
 
         <script src="{% static 'js/docmodal.js' %}"></script>
         <script src="{% static 'js/dpicker.js' %}"></script>
+        <link href="/static/css/site.css" rel="stylesheet">
 
     </head>
 
@@ -35,7 +36,7 @@
   {% endblock %}
 
     <!-- Static navbar -->
-    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="navbar navbar-castom navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -48,7 +49,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'index' %}">Поиск</a></li>
+            <li><a href="{% url 'index' %}">Поиск</a></li>
             <li><a href="#about">Тыц</a></li>
             <li><a href="{% url 'new_person' %}">Новый пациент</a></li>
             <li class="dropdown">

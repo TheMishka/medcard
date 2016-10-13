@@ -45,7 +45,7 @@ class PhoneNumber(models.Model):
     )
     phoneType = models.CharField(max_length=1, choices=PHONETYPE_CHOICES)
 
-class Email(models.Model):
+class PersonEmail(models.Model):
     human = models.ForeignKey(Human)
     email = models.EmailField()
     MAILTYPE_CHOICES = (

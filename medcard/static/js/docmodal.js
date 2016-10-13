@@ -15,7 +15,27 @@ $(document).ready(function(){
         $('#modal-content').html(data)
         })
         $("#doc-modal").modal('show');
-
+    });
+    $(".doc-del").click(function() {
+        swal({
+            title: "Вы уверены?",
+            text: "Удаленный документ невозможно будет восстановить!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Да, удалить",
+            cancelButtonText: "Отменить",
+            closeOnConfirm: false
+        },
+        function(){
+            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+        });
+/*        var id = $(this).data('id');
+        $.get("docedit/" + id)
+        .done(function(data) {
+        $('#modal-content').html(data)
+        })
+        $("#doc-modal").modal('show'); */
     });
     $("#doc-modal").on('shown.bs.modal', function(){
 

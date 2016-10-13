@@ -1,5 +1,5 @@
 from django import forms
-from .models import Human, HumanDocument
+from .models import Human, HumanDocument, PhoneNumber, PersonEmail
 
 class NewPerson(forms.ModelForm):
         class Meta:
@@ -10,10 +10,29 @@ class NewPerson(forms.ModelForm):
                 'patronymic': ('Отчество'),
                 'surname': ('Фамилия'),
                 'birthday': ('Дата рождения'),
-                'place_of_birth': ('Место рождения'),
-                'gender': ('Пол')
+                'residence': ('Место жительства'),
+                'gender': ('Пол'),
+                'blood': ('Группа гкрови'),
+                'rh': ('Резус')
             }
 
+class Phone(forms.ModelForm):
+    class Meta:
+        model = PhoneNumber
+        exclude = ('human',)
+        labels = {
+            'phoneNumber': ('Номер телефона'),
+            'phoneType': ('Тип')
+        }
+
+class Email(forms.ModelForm):
+    class Meta:
+        model = PersonEmail
+        exclude = ('human',)
+        labels = {
+            'email': ('Электронная почта'),
+            'emailType': ('Тип')
+        }
 
 class DocumentEdit(forms.ModelForm):
         class Meta:

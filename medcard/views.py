@@ -4,8 +4,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_protect
 
-from .models import Human, HumanDocument
-from .forms import NewPerson, DocumentEdit
+from .models import Human, HumanDocument, PhoneNumber, PersonEmail
+from .forms import NewPerson, DocumentEdit, Phone, Email
 
 
 def index(request):
@@ -22,7 +22,12 @@ def searchresult(request):
         query_patronymic = request.GET['search_patronymic']
         query_surname = request.GET['search_surname']
         query_bdate = request.GET['search_bdate']
-        found_card = Human.objects.filter(name__icontains=query_name, surname__icontains=query_surname, patronymic__icontains=query_patronymic, birthday__icontains=query_bdate)
+        found_card = Human.objects.filter(
+            name__icontains=query_name,
+            surname__icontains=query_surname,
+            patronymic__icontains=query_patronymic,
+            birthday__icontains=query_bdate
+        )
     return render(request, 'medcard/searchresult.html', {
         'query_name': query_name,
         'query_patronymic': query_patronymic,
@@ -33,14 +38,19 @@ def searchresult(request):
 
 def new_person(request):
     if request.method == "POST":
-        form = NewPerson(request.POST)
-        if form.is_valid():
-            p_card = form.save(commit=False)
-            p_card.save()
+        formPerson = NewPerson(request.POST)
+        formPhone = Phone(request.POST)
+        if formPerson.is_valid() and formPhone.is_valid():
+            p_card = formPerson.save()
+            p_phone = formPhone.save(commit=False)
+            p_phone.human = p_card
+            p_phone.save()
             return redirect('medcard.views.personcard', person_id=p_card.id)
     else:
-        form = NewPerson()
-    return render(request, 'medcard/new_person.html', {'form': form})
+        formPerson = NewPerson()
+        formPhone = Phone()
+        formEmail = Email()
+    return render(request, 'medcard/new_person.html', {'formPerson': formPerson, 'formPhone': formPhone, 'formEmail': formEmail})
 
 def card_edit(request, person_id):
     p_card = get_object_or_404(Human, id=person_id)
@@ -58,7 +68,15 @@ def about(request):
 
 def personcard(request, person_id):
     p_card = get_object_or_404(Human, id = person_id)
-    return render(request, 'medcard/personcard.html', {'p_card': p_card})
+    try:
+        p_phone = PhoneNumber.objects.get(human = p_card)
+    except PhoneNumber.DoesNotExist:
+        p_phone = ''
+    try:
+        p_email = PersonEmail.objects.get(human=p_card)
+    except PersonEmail.DoesNotExist:
+        p_email = ''
+    return render(request, 'medcard/personcard.html', {'p_card': p_card, 'p_phone': p_phone, 'p_email': p_email})
 
 @csrf_protect
 def doc_edit(request, person_id, doc_id=''):

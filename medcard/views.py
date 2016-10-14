@@ -40,11 +40,15 @@ def new_person(request):
     if request.method == "POST":
         formPerson = NewPerson(request.POST)
         formPhone = Phone(request.POST)
-        if formPerson.is_valid() and formPhone.is_valid():
+        formEmail = Email(request.POST)
+        if formPerson.is_valid() and formPhone.is_valid() and formEmail.is_valid():
             p_card = formPerson.save()
             p_phone = formPhone.save(commit=False)
             p_phone.human = p_card
             p_phone.save()
+            p_email = formEmail.save(commit=False)
+            p_email.human = p_card
+            p_email.save()
             return redirect('medcard.views.personcard', person_id=p_card.id)
     else:
         formPerson = NewPerson()
@@ -55,13 +59,31 @@ def new_person(request):
 def card_edit(request, person_id):
     p_card = get_object_or_404(Human, id=person_id)
     if request.method == "POST":
-        form = NewPerson(request.POST, instance=p_card)
-        if form.is_valid():
-            form.save()
+        formPerson = NewPerson(request.POST)
+        formPhone = Phone(request.POST)
+        formEmail = Email(request.POST)
+        if formPerson.is_valid() and formPhone.is_valid() and formEmail.is_valid():
+            p_card = formPerson.save()
+            p_phone = formPhone.save(commit=False)
+            p_phone.human = p_card
+            p_phone.save()
+            p_email = formEmail.save(commit=False)
+            p_email.human = p_card
+            p_email.save()
             return redirect('medcard.views.personcard', person_id=p_card.id)
     else:
-        form = NewPerson(instance=p_card)
-    return render(request, 'medcard/new_person.html', {'form': form})
+        formPerson = NewPerson(instance=p_card)
+        try:
+            p_phone = PhoneNumber.objects.get(human=p_card)
+            formPhone = Phone(instance=p_phone)
+        except PhoneNumber.DoesNotExist:
+            formPhone = Phone()
+        try:
+            p_email = PersonEmail.objects.get(human=p_card)
+            formEmail = Email(instance=p_email)
+        except PersonEmail.DoesNotExist:
+            formEmail = Email()
+    return render(request, 'medcard/new_person.html', {'formPerson': formPerson, 'formPhone': formPhone, 'formEmail': formEmail})
 
 def about(request):
     return render(request, 'medcard/about.html', {})

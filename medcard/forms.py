@@ -5,6 +5,9 @@ class NewPerson(forms.ModelForm):
         class Meta:
             model = Human
             exclude = ('create_date',)
+            widgets = {
+                'birthday': forms.DateInput(format=('%d.%m.%Y'))
+            }
             labels = {
                 'name': ('Имя'),
                 'patronymic': ('Отчество'),

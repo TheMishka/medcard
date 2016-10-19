@@ -132,3 +132,9 @@ def doc_edit(request, person_id, doc_id=''):
             form = DocumentEdit()
     return render(request, 'medcard/docmodal.html', {'form': form, 'p_card': p_card, 'p_doc': p_doc})
 
+@csrf_protect
+def doc_del(request):
+    doc_id = request.POST.get("doc_id")
+    p_doc = get_object_or_404(HumanDocument, id=doc_id)
+    p_doc.delete()
+    return HttpResponse("ok")

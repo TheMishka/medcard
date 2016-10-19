@@ -17,6 +17,8 @@ $(document).ready(function(){
         $("#doc-modal").modal('show');
     });
     $(".doc-del").click(function() {
+        var id = $(this).data('id');
+        var _this = $(this).closest('tr');
         swal({
             title: "Вы уверены?",
             text: "Удаленный документ невозможно будет восстановить!",
@@ -28,15 +30,49 @@ $(document).ready(function(){
             closeOnConfirm: false
         },
         function(){
-            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            $.ajax({
+                url: "docdel/",
+                type: 'POST',
+                data: {
+                    "doc_id": id,
+                },
+// Сообщение после удаления
+                success: function() {
+                    swal({
+                        title: "",
+                        text: "Документ удален",
+                        type: "success",
+                    },
+                    function(){
+                        _this.remove();
+                    })
+                },
+// CSRF механизм защиты Django
+                beforeSend: function(xhr, settings) {
+                    console.log('-------------before send--');
+                    function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie != '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = jQuery.trim(cookies[i]);
+                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                    }
+                    if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                    // Only send the token to relative URLs i.e. locally.
+                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                    }
+                }
+            });// ajax
         });
-/*        var id = $(this).data('id');
-        $.get("docedit/" + id)
-        .done(function(data) {
-        $('#modal-content').html(data)
-        })
-        $("#doc-modal").modal('show'); */
     });
+
     $("#doc-modal").on('shown.bs.modal', function(){
 
         var chooseDate = $('#id_document_date').datepicker({
@@ -67,18 +103,35 @@ $(document).ready(function(){
                     "doc_date": doc_date,
                 },
                 error: function() {
-                    alert('Ошибка получения запроса');
+                    swal(
+                    {
+                        title: "",
+                        text: "Ошибка получения запроса",
+                        type: "warning",
+                    });
                 },
 // При успехе выводим сообщение
                 success: function() {
                     $("#doc-modal").modal('toggle');
+//                    var this_li = $('ul.nav-tabs').find("li.active");
+
                     swal({
                         title: "",
                         text: "Данные успешно изменены",
                         type: "success",
                     },
                     function(){
-                        location.reload();
+                        location.reload(true);
+
+ /*
+                        this_li.css({'backgroundColor': 'red'});
+
+
+                        $('.nav-tabs .active').removeClass('active');
+                        alert('stop');
+                        this_li.addClass('active');
+                        $("#diags").toggleClass('tab-pane fade in active');
+                        $("#docs").toggleClass('tab-pane fade in active'); */
                     })
                 },
 // CSRF механизм защиты Django

@@ -1,5 +1,5 @@
 /*!
- * Modal for human documents
+ * for human documents
  * 
  * Mikhail Zavyalov
  *

@@ -1,0 +1,22 @@
+{% extends 'medcard/menu.html' %}
+{% load bootstrap %}
+
+{% block content %}
+<div class="container">
+    {% load mptt_tags %}
+    <div class="panel">
+        {% recursetree nodes %}
+            <div class="panel-body">
+                <a data-toggle="collapse" href="#{{ node.id }}">{{ node.code }} {{ node.name }}</a>
+                <button type="button" class="btn btn-default" data-target="#"><span class="glyphicon glyphicon-plus"></span></button>
+                {% if not node.is_leaf_node %}
+                    <div id="{{ node.id }}" class="collapse">
+                        {{ children }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endrecursetree %}
+    </div>
+
+</div>
+{% endblock content %}

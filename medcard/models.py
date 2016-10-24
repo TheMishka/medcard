@@ -28,7 +28,7 @@ class Human(models.Model):
 
 class HumanDocument(models.Model):
     human = models.ForeignKey(Human)
-    document_type = models.CharField(max_length=20)
+    document_type = models.CharField(max_length=50)
     document_number = models.PositiveIntegerField()
     document_date = models.DateField()
 
@@ -55,6 +55,9 @@ class PersonEmail(models.Model):
     )
     emailType = models.CharField(max_length=1, choices=MAILTYPE_CHOICES)
 
+    def __str__(self):
+        return self.email
+
 
 class DiagnosisCategory(MPTTModel):
     code = models.CharField(max_length=20, unique=True)
@@ -72,6 +75,9 @@ class DiagnosisRelation(models.Model):
     diagnosis = models.ForeignKey(DiagnosisCategory)
     create_date = models.DateField(verbose_name='Дата постановки диагноза')
     change_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.diagnosis
 
 #class Anamnesis(models.Model):
     

@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_protect
 
-from .models import Human, HumanDocument, PhoneNumber, PersonEmail
+from .models import Human, HumanDocument, PhoneNumber, PersonEmail, DiagnosisCategory, DiagnosisRelation
 from .forms import NewPerson, DocumentEdit, Phone, Email
 
 
@@ -100,6 +100,7 @@ def personcard(request, person_id):
         p_email = ''
     return render(request, 'medcard/personcard.html', {'p_card': p_card, 'p_phone': p_phone, 'p_email': p_email})
 
+
 @csrf_protect
 def doc_edit(request, person_id, doc_id=''):
     p_card = get_object_or_404(Human, id=person_id)
@@ -132,9 +133,14 @@ def doc_edit(request, person_id, doc_id=''):
             form = DocumentEdit()
     return render(request, 'medcard/docmodal.html', {'form': form, 'p_card': p_card, 'p_doc': p_doc})
 
+
 @csrf_protect
 def doc_del(request):
     doc_id = request.POST.get("doc_id")
     p_doc = get_object_or_404(HumanDocument, id=doc_id)
     p_doc.delete()
     return HttpResponse("ok")
+
+
+def show_diags(request):
+    return render(request, 'medcard/diagstree.html', {'nodes': DiagnosisCategory.objects.all()}, context_instance=RequestContext(request))

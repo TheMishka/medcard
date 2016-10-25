@@ -20,7 +20,7 @@
                           <th>Имя</th>
                           <th>Отчество</th>
                           <th>Дата рождения</th>
-                          <th>Место рождения</th>
+                          <th>Место жительства</th>
                           <th>Пол</th>
                       </tr>
                   </thead>
@@ -32,7 +32,7 @@
                           <td>{{ p_card.name }}</td>
                           <td>{{ p_card.patronymic }}</td>
                           <td>{{ p_card.birthday|date:"d.m.Y" }}</td>
-                          <td>{{ p_card.place_of_birth }}</td>
+                          <td>{{ p_card.residence }}</td>
                           {% if p_card.gender == 'm' %}
                           <td>мужской</td>
                           {% else %}

@@ -4,19 +4,19 @@
 {% block content %}
 <div class="container">
     {% load mptt_tags %}
-    <div class="panel">
+    <ul class="list-group">
         {% recursetree nodes %}
-            <div class="panel-body">
+            <li class="list-group-item">
                 <a data-toggle="collapse" href="#{{ node.id }}">{{ node.code }} {{ node.name }}</a>
                 <button type="button" class="btn btn-default" data-target="#"><span class="glyphicon glyphicon-plus"></span></button>
                 {% if not node.is_leaf_node %}
-                    <div id="{{ node.id }}" class="collapse">
+                    <ul id="{{ node.id }}" class="list-group collapse">
                         {{ children }}
-                    </div>
+                    </ul>
                 {% endif %}
-            </div>
+            </li>
         {% endrecursetree %}
-    </div>
+    </ul>
 
 </div>
 {% endblock content %}

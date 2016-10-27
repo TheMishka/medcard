@@ -25,6 +25,7 @@
 
 
         <script src="{% static 'js/docmodal.js' %}"></script>
+        <script src="{% static 'js/diagmodal.js' %}"></script>
         <script src="{% static 'js/dpicker.js' %}"></script>
         <link href="/static/css/site.css" rel="stylesheet">
 
@@ -33,6 +34,8 @@
   <body>
 
   {% block docmodal %}
+  {% endblock %}
+  {% block diagmodal %}
   {% endblock %}
 
     <!-- Static navbar -->

@@ -9,8 +9,18 @@
     </div>
     </div>
 </div>
-
 {% endblock docmodal %}
+
+{% block diagmodal %}
+<!-- Модальное окно работы с диагнозом -->
+<div id="diag-modal" class="modal fade">
+    <div class="modal-dialog" style="overflow: auto; height: 90%;">
+        <div class="modal-content" id="diagmodal-content">
+    <!-- insert diagmodal -->
+        </div>
+    </div>
+</div>
+{% endblock diagmodal %}
 
 {% block content %}
 
@@ -100,8 +110,8 @@
                     <td>{{ diag.diagnosis.name }}</td>
                     <td>{{ diag.create_date|date:"d.m.Y" }}</td>
                     <td>
-                        <button data-id="{{ doc.id }}" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button>
-                        <button data-id="{{ doc.id }}" type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></button>
+                        <button data-id="{{ diag.id }}" type="button" class="btn btn-default open-diagmodal" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button data-id="{{ diag.id }}" type="button" class="btn btn-default diag-del"><span class="glyphicon glyphicon-trash"></span></button>
                     </td>
 
                 </tr>
@@ -110,7 +120,7 @@
 
             </tbody>
         </table>
-        <button data-id="" type="button" class="btn btn-default open-modal" data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></button>
+        <button data-id="" type="button" class="btn btn-default open-diagmodal" data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></button>
     </div>
     <div id="anamnes" class="tab-pane fade">
         <h4>Анамнез</h4>

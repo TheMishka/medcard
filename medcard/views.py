@@ -142,5 +142,27 @@ def doc_del(request):
     return HttpResponse("ok")
 
 
-def show_diags(request):
+@csrf_protect
+def diags_edit(request, person_id, relation_id=''):
+    p_inst = get_object_or_404(Human, id=person_id)
+    if request.method == "POST":
+        if relation_id != '':
+            rel_inst = get_object_or_404(DiagnosisRelation, id=relation_id)
+        else:
+            diag_id = request.POST.get("diag_id")
+            d_inst = get_object_or_404(DiagnosisCategory, id=diags_id)
+            rel_inst = DiagnosisRelation(
+                human=p_inst,
+                diagnosis=d_inst
+            )
+            rel_inst.save()
+            return JsonResponse({'person_id': person_id})
     return render(request, 'medcard/diagstree.html', {'nodes': DiagnosisCategory.objects.all()}, context_instance=RequestContext(request))
+
+
+@csrf_protect
+def diag_del(request):
+    diag_id = request.POST.get("diag_id")
+    rel_inst = get_object_or_404(DiagnosisRelation, id=diag_id)
+    rel_inst.delete()
+    return HttpResponse("ok")

@@ -1,14 +1,17 @@
-{% extends 'medcard/menu.html' %}
-{% load bootstrap %}
 
-{% block content %}
-<div class="container">
+<div class="modal-content" id="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Редактирование диагноза. Пациент {{ p_card.surname }}</h4>
+    </div>
+    <div class="modal-body">
     {% load mptt_tags %}
     <ul class="list-group">
         {% recursetree nodes %}
             <li class="list-group-item">
                 <a data-toggle="collapse" href="#{{ node.id }}">{{ node.code }} {{ node.name }}</a>
-                <button type="button" class="btn btn-default" data-target="#"><span class="glyphicon glyphicon-plus"></span></button>
+                <!-- <button type="button" class="btn btn-default" data-target="#"><span class="glyphicon glyphicon-plus"></span></button> -->
+                <input id="{{ node.id }}" type="radio" name="radio">
                 {% if not node.is_leaf_node %}
                     <ul id="{{ node.id }}" class="list-group collapse">
                         {{ children }}
@@ -17,6 +20,9 @@
             </li>
         {% endrecursetree %}
     </ul>
-
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn btn-success diagmodal-success" data-id="{{ relation.id }}">Сохранить</button>
+    </div>
 </div>
-{% endblock content %}

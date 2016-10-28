@@ -145,10 +145,10 @@ def doc_del(request):
 @csrf_protect
 def diags_edit(request, person_id, relation_id=''):
     p_inst = get_object_or_404(Human, id=person_id)
-    if request.method == "POST":
-        if relation_id != '':
-            rel_inst = get_object_or_404(DiagnosisRelation, id=relation_id)
-        else:
+    nodes = DiagnosisCategory.objects.all()
+    if relation_id != '':
+        rel_inst = get_object_or_404(DiagnosisRelation, id=relation_id)
+        if request.method == "POST":
             diag_id = request.POST.get("diag_id")
             d_inst = get_object_or_404(DiagnosisCategory, id=diags_id)
             rel_inst = DiagnosisRelation(
@@ -157,7 +157,9 @@ def diags_edit(request, person_id, relation_id=''):
             )
             rel_inst.save()
             return JsonResponse({'person_id': person_id})
-    return render(request, 'medcard/diagstree.html', {'nodes': DiagnosisCategory.objects.all()}, context_instance=RequestContext(request))
+    else:
+        rel_inst = ''
+    return render(request, 'medcard/diagstree.html', {'nodes': nodes, 'p_inst': p_inst, 'rel_inst': rel_inst}, context_instance=RequestContext(request))
 
 
 @csrf_protect

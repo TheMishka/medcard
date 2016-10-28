@@ -3,13 +3,13 @@
 <div class="modal-content" id="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Определение диагноза. Пациент {{ p_card.name }} {{ p_card.surname }}</h4>
+        <h4 class="modal-title">Определение диагноза. Пациент {{ p_inst.name }} {{ p_inst.surname }}</h4>
     </div>
     <div class="modal-body">
         <div class="panel panel-default">
             <div class="panel-heading">Дата постановки диагноза</div>
             <div class="panel-body">
-                <input type="date" placeholder="ДД.ММ.ГГГГ">{{ p_card.name }}
+                <input type="text" value="{{ rel_inst.create_date|date:'d.m.Y' }}" placeholder="ДД.ММ.ГГГГ">
           <!--  <span class="input-group-addon glyphicon glyphicon-plus"></span> -->
             </div>
         </div>

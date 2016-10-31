@@ -159,7 +159,7 @@ def diags_edit(request, person_id, relation_id=''):
             return JsonResponse({'person_id': person_id})
     else:
         rel_inst = ''
-    return render(request, 'medcard/diagstree.html', {'nodes': nodes, 'p_inst': p_inst, 'rel_inst': rel_inst}, context_instance=RequestContext(request))
+    return render(request, 'medcard/diagstree.html', {'nodes': nodes, 'p_inst': p_inst, 'rel_inst': rel_inst})
 
 
 @csrf_protect

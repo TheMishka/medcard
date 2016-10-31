@@ -86,12 +86,12 @@ $(document).ready(function(){
         var doc_type = $('input[name=document_type]').val();
         var doc_number = $('input[name=document_number]').val();
         var tempDate = $('input[name=document_date]').val().split('.');
-        var doc_date = tempDate[2]+'-'+tempDate[1]+'-'+tempDate[0];
         var error = '';
-        if ((doc_number == '') || (doc_type == '') || (doc_date == '')){
+        if ((doc_number == '') || (doc_type == '') || (tempDate == '')){
             error = 'Заполните все поля!';
             swal("Предупреждение!", error, "warning");
         }
+        var doc_date = tempDate[2]+'-'+tempDate[1]+'-'+tempDate[0];
         if (!error) {
             $.ajax({
                 url: "docedit/" + id,

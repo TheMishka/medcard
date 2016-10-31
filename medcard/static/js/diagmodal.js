@@ -16,7 +16,6 @@ $(document).ready(function(){
         })
         $("#diag-modal").modal('show');
     });
-
     $(".diag-del").click(function() {
         var id = $(this).data('id');
         var _this = $(this).closest('tr');
@@ -76,33 +75,31 @@ $(document).ready(function(){
 
     $("#diag-modal").on('shown.bs.modal', function(){
 
-/*        var chooseDate = $('#id_document_date').datepicker({
+        var chooseDate = $('#d_date').datepicker({
 		    format: 'dd.mm.yyyy'
 	    }).on('changeDate', function(ev){  // Hidden calendar
 	        chooseDate.hide();
-	    }).data('datepicker'); */
+	    }).data('datepicker');
 
         $(".diagmodal-success").click(function(){
-        var id = $(this).data('id');
 
-        var doc_type = $('input[name=document_type]').val();
-        var doc_number = $('input[name=document_number]').val();
-        var tempDate = $('input[name=document_date]').val().split('.');
-        var doc_date = tempDate[2]+'-'+tempDate[1]+'-'+tempDate[0];
+        var id = $('#relation_id').val();
+        var diags_id = $('input[name=radio]:checked').val();
+        alert(diags_id);
+        var tempDate = $('#d_date').val().split('.');
         var error = '';
-        if ((doc_number == '') || (doc_type == '') || (doc_date == '')){
-            error = 'Заполните все поля!';
+        if ((tempDate == '')||(diags_id == '')){
+            error = 'Укажите диагноз и дату постановки диагноза!';
             swal("Предупреждение!", error, "warning");
         }
+        var diags_date = tempDate[2]+'-'+tempDate[1]+'-'+tempDate[0];
         if (!error) {
             $.ajax({
                 url: "docedit/" + id,
                 type: 'POST',
                 data: {
-                    "doc_id": id,
-                    "doc_type": doc_type,
-                    "doc_number": doc_number,
-                    "doc_date": doc_date,
+                    "diags_id": diags_id,
+                    "diags_date": diags_date,
                 },
                 error: function() {
                     swal(
@@ -114,9 +111,7 @@ $(document).ready(function(){
                 },
 // При успехе выводим сообщение
                 success: function() {
-                    $("#doc-modal").modal('toggle');
-//                    var this_li = $('ul.nav-tabs').find("li.active");
-
+                    $("#diag-modal").modal('toggle');
                     swal({
                         title: "",
                         text: "Данные успешно изменены",

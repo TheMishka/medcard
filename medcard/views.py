@@ -148,17 +148,29 @@ def diags_edit(request, person_id, relation_id=''):
     nodes = DiagnosisCategory.objects.all()
     if relation_id != '':
         rel_inst = get_object_or_404(DiagnosisRelation, id=relation_id)
-        if request.method == "POST":
-            diag_id = request.POST.get("diag_id")
+        if request.method == "POST" and request.is_ajax():
+            diags_id = request.POST.get("diags_id")
             d_inst = get_object_or_404(DiagnosisCategory, id=diags_id)
             rel_inst = DiagnosisRelation(
+                id=request.POST.get("relation_id"),
                 human=p_inst,
-                diagnosis=d_inst
+                diagnosis=d_inst,
+                create_date=request.POST.get("diags_date")
             )
             rel_inst.save()
             return JsonResponse({'person_id': person_id})
     else:
         rel_inst = ''
+        if request.method == "POST" and request.is_ajax():
+            diags_id = request.POST.get("diags_id")
+            d_inst = get_object_or_404(DiagnosisCategory, id=diags_id)
+            rel_inst = DiagnosisRelation(
+                human=p_inst,
+                diagnosis=d_inst,
+                create_date=request.POST.get("diags_date")
+            )
+            rel_inst.save()
+            return JsonResponse({'person_id': person_id})
     return render(request, 'medcard/diagstree.html', {'nodes': nodes, 'p_inst': p_inst, 'rel_inst': rel_inst})
 
 

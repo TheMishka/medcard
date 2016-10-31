@@ -85,7 +85,6 @@ $(document).ready(function(){
 
         var id = $('#relation_id').val();
         var diags_id = $('input[name=radio]:checked').val();
-        alert(diags_id);
         var tempDate = $('#d_date').val().split('.');
         var error = '';
         if ((tempDate == '')||(diags_id == '')){
@@ -95,7 +94,7 @@ $(document).ready(function(){
         var diags_date = tempDate[2]+'-'+tempDate[1]+'-'+tempDate[0];
         if (!error) {
             $.ajax({
-                url: "docedit/" + id,
+                url: "diagstree/" + id,
                 type: 'POST',
                 data: {
                     "diags_id": diags_id,

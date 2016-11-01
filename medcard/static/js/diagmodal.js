@@ -1,6 +1,6 @@
 /*!
  * for human diagnosis
- * 
+ *
  * Mikhail Zavyalov
  *
  * Date: 2016-10-26
@@ -13,6 +13,12 @@ $(document).ready(function(){
         $.get("diagstree/" + id)
         .done(function(data) {
         $('#diagmodal-content').html(data)
+        if (id != ''){
+            var d_id = $('#id_diags').val();
+            $('input[value=' +d_id+ ']').parents('a[data-toggle="collapse"]').removeClass('collapsed');
+            $('input[value=' +d_id+ ']').parents('ul.collapse').toggleClass('collapse in');
+            $('input[value=' +d_id+ ']').attr("checked", true);
+        }
         })
         $("#diag-modal").modal('show');
     });

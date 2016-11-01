@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^(?P<person_id>\d+)/docedit/$', views.doc_edit, name='newdoc'),
     url(r'^[a-z0-9-]+/docdel/$', views.doc_del, name='docdel'),
     url(r'^(?P<person_id>\d+)/edit/$', views.card_edit, name='card_edit'),
-    url(r'^(?P<person_id>\d+)/diagstree/$', views.diags_edit, name='new_diags'),
     url(r'^(?P<person_id>\d+)/diagstree/(?P<relation_id>\d+)$', views.diags_edit, name='edit_diags'),
+    url(r'^(?P<person_id>\d+)/diagstree/$', views.diags_edit, name='new_diags'),
     url(r'^[a-z0-9-]+/diagdel/$', views.diag_del, name='del_diags'),
 ]

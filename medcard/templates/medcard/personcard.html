@@ -110,7 +110,7 @@
                     <td>{{ diag.diagnosis.name }}</td>
                     <td>{{ diag.create_date|date:"d.m.Y" }}</td>
                     <td>
-                        <input id="id_diags" class="hidden" value="{{ diag.diagnosis.id }}" />
+                        <input id="id_diagnosis" class="hidden" value="{{ diag.diagnosis.id }}" />
                         <button data-id="{{ diag.id }}" type="button" class="btn btn-default open-diagmodal" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button>
                         <button data-id="{{ diag.id }}" type="button" class="btn btn-default diag-del"><span class="glyphicon glyphicon-trash"></span></button>
                     </td>

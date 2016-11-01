@@ -10,11 +10,12 @@
 $(document).ready(function(){
     $(".open-diagmodal").click(function() {
         var id = $(this).data('id');
+        var _this = $(this).siblings('#id_diagnosis');
         $.get("diagstree/" + id)
         .done(function(data) {
         $('#diagmodal-content').html(data)
         if (id != ''){
-            var d_id = $('#id_diags').val();
+            var d_id = _this.val();
             $('input[value=' +d_id+ ']').parents('a[data-toggle="collapse"]').removeClass('collapsed');
             $('input[value=' +d_id+ ']').parents('ul.collapse').toggleClass('collapse in');
             $('input[value=' +d_id+ ']').attr("checked", true);
@@ -22,6 +23,7 @@ $(document).ready(function(){
         })
         $("#diag-modal").modal('show');
     });
+// Удаление записи диагноза
     $(".diag-del").click(function() {
         var id = $(this).data('id');
         var _this = $(this).closest('tr');

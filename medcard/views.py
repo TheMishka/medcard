@@ -152,7 +152,7 @@ def diags_edit(request, person_id, relation_id=''):
             diags_id = request.POST.get("diags_id")
             d_inst = get_object_or_404(DiagnosisCategory, id=diags_id)
             rel_inst = DiagnosisRelation(
-                id=request.POST.get("relation_id"),
+                id=relation_id,
                 human=p_inst,
                 diagnosis=d_inst,
                 create_date=request.POST.get("diags_date")
